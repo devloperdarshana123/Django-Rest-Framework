@@ -48,32 +48,32 @@ def studentsDetailView(request , pk):
     
     
     
-    
-class Employees(mixins.ListModelMixin , mixins.CreateModelMixin , generics.GenericAPIView):
-    queryset = Employee.objects.all()
-    serializer_class = EmployeeSerializer
-    def get(self , request):
-        return self.list(request)
-    def post(self  , request):
-        return self.create(request)
-    def delete(self, request, pk):
-        return self.destroy(request, pk=pk)
+# MIXINS USING
+# class Employees(mixins.ListModelMixin , mixins.CreateModelMixin , generics.GenericAPIView):
+#     queryset = Employee.objects.all()
+#     serializer_class = EmployeeSerializer
+#     def get(self , request):
+#         return self.list(request)
+#     def post(self  , request):
+#         return self.create(request)
+#     def delete(self, request, pk):
+#         return self.destroy(request, pk=pk)
 
 
-class EmployeeDetail( mixins.RetrieveModelMixin ,  mixins.UpdateModelMixin , mixins.DestroyModelMixin, generics.GenericAPIView):
-    queryset = Employee.objects.all()
-    serializer_class = EmployeeSerializer
+# class EmployeeDetail( mixins.RetrieveModelMixin ,  mixins.UpdateModelMixin , mixins.DestroyModelMixin, generics.GenericAPIView):
+#     queryset = Employee.objects.all()
+#     serializer_class = EmployeeSerializer
 
-    def get(self, request, pk):
-        return self.retrieve(request , pk)
+#     def get(self, request, pk):
+#         return self.retrieve(request , pk)
         
 
-    def put(self, request, pk):
-        return self.update(request , pk)
+#     def put(self, request, pk):
+#         return self.update(request , pk)
         
 
-    def delete(self, request, pk):
-        return self.destroy(request , pk)
+#     def delete(self, request, pk):
+#         return self.destroy(request , pk)
     
     
     
@@ -112,6 +112,30 @@ class EmployeeDetail( mixins.RetrieveModelMixin ,  mixins.UpdateModelMixin , mix
 #         employee = self.get_object(pk)
 #         employee.delete()
 #         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+# GENERICS VIEW
+class Employees(generics.ListCreateAPIView):
+    queryset = Employee.objects.all()
+    serializer_class = EmployeeSerializer
+class EmployeeDetail(generics.RetrieveAPIView):
+    queryset = Employee.objects.all()
+    serializer_class = EmployeeSerializer
+    class EmployeeCreate(generics.CreateAPIView):
+        queryset = Employee.objects.all()
+        serializer_class = EmployeeSerializer
+        class EmployeeUpdate(generics.UpdateAPIView):
+            queryset = Employee.objects.all()
+            serializer_class = EmployeeSerializer
+            class EmployeeDelete(generics.DestroyAPIView):
+                queryset = Employee.objects.all()
+                serializer_class = EmployeeSerializer
+                
+    
+    
+    
+
+
     
     
 
