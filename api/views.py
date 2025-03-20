@@ -48,6 +48,21 @@ def studentsDetailView(request , pk):
     
     
     
+    
+class Employees(mixins.ListModelMixin , mixins.CreateModelMixin , generics.GenericAPIView):
+    queryset = Employee.objects.all()
+    serializer_class = EmployeeSerializer
+    def get(self , request):
+        return self.list(request)
+    def post(self  , request):
+        return self.create(request)
+
+
+class EmployeeDetail(generics.GenericAPIView):
+    
+    
+    
+    
 # class Employees(APIView):
 #     def get(self, request):
 #         employees = Employee.objects.all()
