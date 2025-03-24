@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rohii' ,
     'api', 
     'employees',
+    'blogs',
     
 ]
 
