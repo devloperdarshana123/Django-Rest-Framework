@@ -1,7 +1,7 @@
 from django.shortcuts import render , get_object_or_404
 # from django.http import JsonResponse
 from rohii.models import Rohii
-from .serializer import StudentSerializer , EmployeeSerializer
+from .serializers import StudentSerializer , EmployeeSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -10,7 +10,7 @@ from employees.models import Employee
 from django.http import Http404
 from rest_framework import mixins , generics , viewsets
 from blogs.models import Blog , Comment
-from blogs.serializer import BlogSerializer , CommentSerializer
+from blogs.serializers import BlogSerializer , CommentSerializer
 
 @api_view(['GET' ,'POST'])
 def studentsView(request):
@@ -157,6 +157,14 @@ class CommentsView(generics.ListCreateAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
     
+class BlogDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
+    lookup_field = 'pk'
+class CommentDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    lookup_field = 'pk'
     
     
         
